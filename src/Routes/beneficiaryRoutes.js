@@ -14,13 +14,13 @@ router.get(pathForBeneficiaryOps.getBeneficiaries, async (req, res) => {
 
 router.post(pathForBeneficiaryOps.addBeneficiary, async (req, res) => {
     try {
-        const { fullName, address, country, pincode} = req.body;
+        const { fullName, accountNumber, bankName, accountType} = req.body;
 
         const beneficiary = Beneficiary.create({
             fullName,
-            address,
-            country,
-            pincode,
+            accountNumber,
+            bankName,
+            accountType
         });
         res.status(201).json(beneficiary);
     } catch (err) {
@@ -43,7 +43,6 @@ router.put(pathForBeneficiaryOps.editBeneficiary, async (req, res) => {
 
 router.delete(pathForBeneficiaryOps.deleteBeneficiary, async (req, res) => {
     try {
-        console.log(req.params.id);
         await Beneficiary.findByIdAndDelete(req.params.id);
         res.json({ message: "Beneficiary removed." });
     } catch (err) {
